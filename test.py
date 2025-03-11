@@ -1,3 +1,6 @@
+#cd C:\Users\User\Documents\GitHub\dfff
+#python test.py
+
 from scapy.all import conf, IP, TCP, sniff
 
 ip_count = {}
