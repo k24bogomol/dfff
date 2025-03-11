@@ -9,19 +9,19 @@ def packet_check(packet):
        key = (packet[IP].src, packet[TCP].dport)
        ip_count[key] = ip_count.get(key, 0) + 1
 
-sniff(count = 10, prn = packet_check)
-for key, value in ip_count.items():
+sniff(iface="Intel(R) Wi-Fi 6 AX201 160MHz", count = 10, prn = packet_check)
+for key, value in ip_count:
     if value >= 3:
-        idk_ip[key] = value
+        idk_ip[key] = ip_count.pop(key,value)
     else:
-        good_ip[key] = value
+        good_ip[key] = ip_count.pop(key, value)
 
 print("Безопасные соединения: ")
-for key, value in good_ip.items():
-    print(f"{key} - {value} запросов")
+for key in good_ip:
+    print(f"{key}")
 
-print("Подозрительные соединения: ")
-for key, value in idk_ip.items():
+print("Подозрительные соединенияЖ ")
+for key in idk_ip:
     print(f"по данному айпи ({key}) обнаружено: ({value}) запросов")
 
        
