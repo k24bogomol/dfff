@@ -19,13 +19,14 @@ for key, value in ip_count.items():
     else:
         good_ip[key] = value
 
-print("Безопасные соединения: ")
-for key in good_ip.items():
-    print(f"{key}")
+print("Безопасные соединения:")
+for key, value in good_ip.items():
+    print(f"IP: {key[0]}, порт: {key[1]} - {value} запросов")
 
-print("Подозрительные соединения: ")
-for key in idk_ip.items():
-    print(f"по данному айпи {key} обнаружено: {value} запросов")
+print("Подозрительные соединения:")
+for key, value in idk_ip.items():
+    print(f"По IP {key[0]} на порт {key[1]} обнаружено {value} запросов")
+
 
        
 
