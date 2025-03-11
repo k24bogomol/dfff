@@ -1,4 +1,4 @@
-from scapy.all import conf, IP, sniff
+from scapy.all import conf, IP, TCP, sniff
 
 ip_count = {}
 good_ip = {}
@@ -10,18 +10,18 @@ def packet_check(packet):
        ip_count[key] = ip_count.get(key, 0) + 1
 
 sniff(count = 10, prn = packet_check)
-for key, value in ip_count:
+for key, value in ip_count.items():
     if value >= 3:
-        idk_ip[key] = ip_count.pop(key,value)
+        idk_ip[key] = value
     else:
-        good_ip[key] = ip_count.pop(key, value)
+        good_ip[key] = value
 
 print("Безопасные соединения: ")
-for key in good_ip:
-    print(f"{key}")
+for key, value in good_ip.items():
+    print(f"{key} - {value} запросов")
 
-print("Подозрительные соединенияЖ ")
-for key in idk_ip:
+print("Подозрительные соединения: ")
+for key, value in idk_ip.items():
     print(f"по данному айпи ({key}) обнаружено: ({value}) запросов")
 
        
