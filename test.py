@@ -25,7 +25,7 @@ for key in good_ip.items():
 
 print("Подозрительные соединения: ")
 for key in idk_ip.items():
-    print(f"по данному айпи ({key}) обнаружено: ({value}) запросов")
+    print(f"по данному айпи {key} обнаружено: {value} запросов")
 
        
 
