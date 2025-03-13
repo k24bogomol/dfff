@@ -12,20 +12,21 @@ def packet_check(packet):
        key = (packet[IP].src, packet[TCP].dport)
        ip_count[key] = ip_count.get(key, 0) + 1
 
-sniff(iface="Intel(R) Wi-Fi 6 AX201 160MHz", count = 10, prn = packet_check)
-for key, value in ip_count.items():
-    if value >= 3:
-        idk_ip[key] = value
-    else:
-        good_ip[key] = value
+def scan_ip():
+    sniff(iface="Intel(R) Wi-Fi 6 AX201 160MHz", count = 10, prn = packet_check)
+    for key, value in ip_count.items():
+        if value >= 3:
+            idk_ip[key] = value
+        else:
+            good_ip[key] = value
 
-print("Безопасные соединения:")
-for key, value in good_ip.items():
-    print(f"IP: {key[0]}, порт: {key[1]} - {value} запросов")
+    print("Безопасные соединения:")
+    for key, value in good_ip.items():
+        print(f"IP: {key[0]}, порт: {key[1]} - {value} запросов")
 
-print("Подозрительные соединения:")
-for key, value in idk_ip.items():
-    print(f"По IP {key[0]} на порт {key[1]} обнаружено {value} запросов")
+    print("Подозрительные соединения:")
+    for key, value in idk_ip.items():
+        print(f"По IP {key[0]} на порт {key[1]} обнаружено {value} запросов")
 
 
        
