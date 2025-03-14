@@ -1,7 +1,6 @@
 from scapy.all import conf, sniff
-print("Начинаем перехват пакетов...")
-sniff(iface="Intel(R) Wi-Fi 6 AX201 160MHz", count=1, prn=print)
-print("Перехват окончен!")
+active_ip = conf.route.route("0.0.0.0")[0]
+print(active_ip)
 
 
 #python mistakes.py
