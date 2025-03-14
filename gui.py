@@ -1,7 +1,7 @@
 #python gui.py
 from tkinter import *
 from update import update_ip
-from ban import ban_ip
+from ban import ban_ip, unban_ip
 
 #окно
 root = Tk() 
@@ -16,7 +16,7 @@ root.grid_columnconfigure(0,weight=2)
 root.grid_columnconfigure(1, weight=1)
 root.grid_columnconfigure(2, weight=2)
 
-
+show_blocked_var = BooleanVar()
 
 frame_label = Frame(root, bg="#292A2D")
 frame_label.grid(row=0, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
@@ -63,11 +63,19 @@ Label(frame_idk, text="Подозрительное подключение: ", f
 
 #составляюще
 
-btn = Button(frame_button, text="сканировать", font=("Arial", 12, "bold"), bg="#E75480", fg="#F8F8F8", activebackground="#FF85A2", activeforeground="#1A1A1D", relief="raised", padx=10, pady=5, command=lambda: update_ip())
-btn.grid(row=0, column=0, sticky="nsew")
+btn_scan = Button(frame_button, text="сканировать", font=("Arial", 12, "bold"), bg="#E75480", fg="#F8F8F8", activebackground="#FF85A2", activeforeground="#1A1A1D", relief="raised", padx=10, pady=5, command=lambda: update_ip(frame_good, frame_idk, frame_good_checkbox, frame_idk_checkbox, show_blocked_var))
+btn_scan.grid(row=0, column=0, sticky="nsew")
 
-btn = Button(frame_button_ban, text="ЗАБЛОКИРОВАТЬ", font=("Arial", 12, "bold"), bg="#F8F8F8", fg="#E75480", activebackground="#FF85A2", activeforeground="#1A1A1D", relief="raised", padx=10, pady=5, command=lambda: ban_ip())
-btn.grid(row=0, column=0, sticky="nsew")
+btn_ban = Button(frame_button_ban, text="ЗАБЛОКИРОВАТЬ", font=("Arial", 12, "bold"), bg="#F8F8F8", fg="#E75480", activebackground="#FF85A2", activeforeground="#1A1A1D", relief="raised", padx=10, pady=5, command=lambda: ban_ip())
+btn_ban.grid(row=0, column=0, sticky="nsew")
+
+btn_unban = Button(frame_button_ban, text="РАЗБЛОКИРОВАТЬ", font=("Arial", 12, "bold"), bg="#F8F8F8", fg="#E75480", activebackground="#FF85A2", activeforeground="#1A1A1D", relief="raised", padx=10, pady=5, command=lambda: unban_ip())
+btn_unban.grid(row=1, column=0, sticky="nsew")
+
+show_blocked_checkbox = Checkbutton(frame_label, text="Показать заблокированные IP", variable=show_blocked_var, command=lambda:update_ip(frame_good, frame_idk, frame_good_checkbox, frame_idk_checkbox, show_blocked_var), fg="#F8F8F8", bg="#292A2D")
+show_blocked_checkbox.grid(row=1, column=0, pady=10, columnspan=3, sticky="nsew")
+
+
 #составляющее
 
 root.mainloop()
