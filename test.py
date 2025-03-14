@@ -28,6 +28,8 @@ def scan_ip():
     for key, value in idk_ip.items():
         print(f"По IP {key[0]} на порт {key[1]} обнаружено {value} запросов")
 
+    return good_ip, idk_ip
+
 
        
 

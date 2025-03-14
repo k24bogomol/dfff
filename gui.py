@@ -3,7 +3,7 @@ from tkinter import *
 from test import scan_ip
 
 #окно
-root = Tk()
+root = Tk() 
 root.geometry("900x600")
 root.title("idk")
 root.configure(bg="#DBC5D1")
@@ -33,8 +33,33 @@ frame_button.grid(row=2, column=1, padx=30, pady=30, sticky="nsew")
 #окно
 
 #составляющее
-btn = Button(frame_button, text="сканировать", command=lambda: scan_ip())
-btn.grid(row=2, column=1, sticky="nsew")
+ip_vars = {}
+
+def clear_checkboxes(frame):
+    for widget in frame.winfo_children():  
+        if isinstance(widget, Checkbutton):  
+            widget.destroy() 
+
+def update_ip ():
+    good_ip, idk_ip = scan_ip()
+    clear_checkboxes(frame_good)
+    clear_checkboxes(frame_idk)
+    add_checkbox(frame_good, good_ip)
+    add_checkbox(frame_idk, idk_ip)
+
+
+def add_checkbox(frame, ip_list):
+    i=0
+    for key, value in ip_list.items():
+        var = BooleanVar()
+        chk = Checkbutton(frame, text=f"ip: {key} было найдено ({value} запросов)", variable=var, bg=frame["bg"])
+        chk.grid(row=i, column=0, sticky="w", padx=10)
+        ip_vars[key] = var
+        i+=1
+
+
+btn = Button(frame_button, text="сканировать", command=lambda: update_ip())
+btn.grid(row=0, column=0, sticky="nsew")
 #составляющее
 
 root.mainloop()
