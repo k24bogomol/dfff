@@ -13,7 +13,7 @@ def packet_check(packet):
        ip_count[key] = ip_count.get(key, 0) + 1
 
 def scan_ip():
-    sniff(iface="Intel(R) Wi-Fi 6 AX201 160MHz", count = 10, prn = packet_check)
+    sniff(iface="enp0s3", count = 10, prn = packet_check)
     for key, value in ip_count.items():
         if value >= 3:
             idk_ip[key] = value
